@@ -3,8 +3,14 @@ URxvt.scrollBar:    false
 ! Real transparency
 URxvt.depth:        32
 
-! Extensions
-URxvt.perl-ext:     tabbedex
+! Tabbedex
+URxvt.perl-ext:         tabbedex
+URxvt.tabbed.tabbar-fg: 15
+URxvt.tabbed.tabbar-bg: 0
+URxvt.tabbed.tab-fg:    12
+URxvt.tabbed.tab-bg:    0
+URxvt.tabbed.title-fg:  15
+URxvt.tabbed.title-bg:  0
 
 ! Colour Scheme
 URxvt.background:   rgba:0000/0000/0000/c800
