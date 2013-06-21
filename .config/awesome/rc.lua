@@ -34,7 +34,7 @@ end
 
 -- {{{ Variable definitions
 -- Themes define colours, icons, and wallpapers
-beautiful.init(os.getenv("HOME") .. "/.config/awesome/zenburn/theme.lua")
+beautiful.init(os.getenv("HOME") .. "/.config/awesome/themes/vblue/theme.lua")
 
 -- This is used later as the default terminal and editor to run.
 terminal = "urxvt"
@@ -67,7 +67,7 @@ layouts =
 tags = {}
 for s = 1, screen.count() do
     -- Each screen has its own tag table.
-    tags[s] = awful.tag({ 1, 2, 3, 4, 5, 6, 7, 8, 9 }, s, layouts[1])
+    tags[s] = awful.tag({ "α", "β", "γ", "δ", "φ", "χ", "ψ", "ω" }, s, layouts[1])
 end
 -- }}}
 
@@ -139,8 +139,8 @@ for s = 1, screen.count() do
 
     -- Create a tasklist widget
     mytasklist[s] = awful.widget.tasklist(function(c)
-                                              return awful.widget.tasklist.label.currenttags(c, s)
-                                          end, mytasklist.buttons)
+        return awful.widget.tasklist.label.currenttags(c, s)
+    end, mytasklist.buttons)
 
     -- Create the wibox
     mywibox[s] = awful.wibox({ position = "top", height = 20, screen = s })

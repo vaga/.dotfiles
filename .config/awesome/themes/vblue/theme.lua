@@ -8,7 +8,7 @@
 
 -- {{{ Main
 theme = {}
-theme.wallpaper_cmd = { "awsetbg " .. os.getenv("HOME") .. "/.config/awesome/zenburn/zenburn-background.png" }
+theme.wallpaper_cmd = { "awsetbg " .. os.getenv("HOME") .. "/.config/awesome/themes/vblue/zenburn-background.png" }
 -- }}}
 
 -- {{{ Styles
@@ -16,18 +16,18 @@ theme.font      = "sans 8"
 
 -- {{{ Colors
 theme.fg_normal = "#FFFFFF"
-theme.fg_focus  = "#0088CC"
+theme.fg_focus  = "#5090ff"
 theme.fg_urgent = "#CC9393"
 theme.bg_normal = "#111111"
-theme.bg_focus  = "#111111"
+theme.bg_focus  = "#222222"
 theme.bg_urgent = "#3F3F3F"
 -- }}}
 
 -- {{{ Borders
 theme.border_width  = "1"
-theme.border_normal = "#3F3F3F"
-theme.border_focus  = "#6F6F6F"
-theme.border_marked = "#CC9393"
+theme.border_normal = "#444444"
+theme.border_focus  = "#555555"
+theme.border_marked = "#666666"
 -- }}}
 
 -- {{{ Titlebars
