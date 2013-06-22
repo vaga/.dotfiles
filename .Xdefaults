@@ -1,3 +1,7 @@
+! Font size
+URxvt.font:         xft:Liberation Mono:style=Regular:pixelsize=14
+
+! Scrollbar
 URxvt.scrollBar:    false
 
 ! Real transparency
