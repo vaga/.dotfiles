@@ -1,5 +1,7 @@
-! Font size
-URxvt.font:         xft:Liberation Mono:style=Regular:pixelsize=14
+!Font
+URxvt.font:     xft:Terminus:style=Regular:pixelsize=15:antialias=true
+
+URxvt*borderLess: false
 
 ! Scrollbar
 URxvt.scrollBar:    false

@@ -12,7 +12,7 @@ theme.wallpaper_cmd = { "awsetbg " .. os.getenv("HOME") .. "/.config/awesome/the
 -- }}}
 
 -- {{{ Styles
-theme.font      = "sans 8"
+theme.font      = "Terminus 8"
 
 -- {{{ Colors
 theme.fg_normal = "#FFFFFF"
