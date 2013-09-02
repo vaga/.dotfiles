@@ -8,7 +8,7 @@
 
 -- {{{ Main
 theme = {}
-theme.wallpaper_cmd = { "awsetbg " .. os.getenv("HOME") .. "/.config/awesome/themes/vblue/zenburn-background.png" }
+theme.wallpaper_cmd = { "awsetbg " .. os.getenv("HOME") .. "/.config/awesome/themes/vblue/background.jpg" }
 -- }}}
 
 -- {{{ Styles

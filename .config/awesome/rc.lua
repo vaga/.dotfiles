@@ -7,6 +7,13 @@ require("beautiful")
 -- Notification library
 require("naughty")
 
+-- {{{ Execute Once
+function run_once(prg)
+    awful.util.spawn_with_shell("pgrep -u $USER -x " .. prg .. " || (" .. prg .. ")")
+end
+run_once('pidgin');
+-- }}}
+
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
 -- another config (This code will only ever execute for the fallback config)
