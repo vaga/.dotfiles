@@ -9,7 +9,7 @@ syntax on
 
 " Style
 set t_Co=256
-colorscheme wombat256mod
+colorscheme xoria256
 set cursorline
 
 " Tabs
@@ -19,8 +19,6 @@ set shiftwidth=4
 set expandtab
 set smartindent
 set autoindent
-
-" Controler les tabs
 set list
 set listchars=tab:>\ 
 
@@ -30,16 +28,12 @@ set hlsearch
 " Folding
 set foldmethod=marker
 
-" Controler 80 colonnes et espace en fin de ligne
+" Highlight +80 columns and whitespaces at the end of line
 highlight OverLength ctermbg=52 ctermfg=white guibg=#592929
-match OverLength /\s\+$\|\%81v.\+/
+match OverLength /\s\+$/
 
 " Filetype
 filetype plugin on
-
-" Buffer
-au BufNewFile * call Epi_Header_Insert()
-au BufWritePre * call UpdateHeaderDate()
 
 " Mapping
 map <F3> <esc>ggvG=
@@ -51,9 +45,9 @@ inoremap (( ()<esc>i
 inoremap ((; ();<esc>hi
 inoremap [[ []<esc>i
 inoremap [[; [];<esc>hi
-" inoremap << <><esc>i
 inoremap {{ {<cr><cr>}<esc>ki
 
+" Vim custom
 if filereadable("./.vim.custom")
     so ./.vim.custom
 endif
