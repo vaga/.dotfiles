@@ -35,6 +35,9 @@ match OverLength /\s\+$/
 " Filetype
 filetype plugin on
 
+" Skeleton
+au BufNewFile *.html 0r ~/.vim/skeleton/skeleton.html
+
 " Mapping
 map <F3> <esc>ggvG=
 inoremap ''; '';<esc>hi
