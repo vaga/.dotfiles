@@ -16,21 +16,17 @@ HISTFILESIZE=2000
 # update the values of LINES and COLUMNS.
 shopt -s checkwinsize
 
-# If this is an xterm set the title to user@host:dir
-export PS1='\[\033[00;37m\]\u@\h \W \$ \[\033[00m\]'
+# Prompt
+export PS1='\u@\h:\w \$ '
 
 # some more ls aliases
-
-# Auto completions
-complete -cf man
-
-# Add aliases
-alias grep='grep --color=auto'
 alias ls='ls --color=auto'
-alias ll='ls -l'
-alias la='ls -la'
-alias l='ls -lh'
+alias grep='grep --color=auto'
+alias ll='ls -alF'
+alias la='ls -A'
+alias l='ls -CF'
 alias lock='i3lock -c 000000'
-alias vi='vim'
-alias tree='tree -C'
-alias ack='ack-grep --color'
+
+# Environment variables
+export EDITOR=vim
+export PATH=$PATH:/opt/android/tools:/opt/android/platform-tools
