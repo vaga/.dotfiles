@@ -1,0 +1,6 @@
+#
+# .inputrc
+#
+
+# Perform file completion in a case insensitive fashion
+set completion-ignore-case on

@@ -1,0 +1,12 @@
+[user]
+    name = "Fabien CASTERS"
+    email = fabien@vaga.io
+
+[core]
+    excludesfile = ~/.gitignore
+
+[pull]
+    rebase = preserve
+
+[alias]
+    lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
