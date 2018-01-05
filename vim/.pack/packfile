@@ -6,5 +6,10 @@
 - 
   category: default
   local: false
+  name: "tpope/vim-unimpaired"
+  opt: false
+- 
+  category: default
+  local: false
   name: "w0ng/vim-hybrid"
   opt: false
