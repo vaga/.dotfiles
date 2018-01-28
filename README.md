@@ -1,7 +1,7 @@
 .dotfiles
 =========
 
-These are my dotfiles. You'll find my config for my favorite tools:
+These are my MacOS / Ubuntu dotfiles. You'll find my config for my favorite tools:
  - bash
  - vim
  - git
@@ -16,5 +16,5 @@ Dependencies
 Install
 -------
 
- - `rcup -v`
+ - `rcup && rcup -v` — This second run picks up changes to the `~/.rcrc` file from the first run.
  - `pack install`

@@ -1,5 +1,5 @@
 #
-# .profile
+# .bashrc
 #
 
 # Prompt
@@ -18,13 +18,21 @@ PROMPT_COMMAND="__prompt_command"
 PS1='$exit_status \[\e[93m\]\t \[\e[95m\]\W $(__git_ps1 "\[\e[94m\]git(\[\e[93m\]%s\[\e[94m\]) ")$arrow '
 
 # Environment
-export EDITOR="/usr/local/bin/vim"
+export EDITOR="vim"
 export GOPATH="$HOME/.go"
 export PATH="$PATH:$GOPATH/bin"
 
 # Aliases
-alias ls='ls -G'
+if [ "$OSTYPE" == "darwin" ]; then
+    alias ls='ls -G'
+elif [ "$OSTYPE" == "linux-gnu" ]; then
+    alias ls='ls --color=auto'
+fi
 
 # Bash completion
-[ -f `brew --prefix`/etc/bash_completion ] && . `brew --prefix`/etc/bash_completion
+if which brew > /dev/null && [ -f `brew --prefix`/etc/bash_completion ]; then
+    source `brew --prefix`/etc/bash_completion;
+elif [ -f /etc/bash_completion ]; then
+    source /etc/bash_completion;
+fi
 
