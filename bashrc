@@ -23,16 +23,16 @@ export GOPATH="$HOME/.go"
 export PATH="$PATH:$GOPATH/bin"
 
 # Aliases
-if [ "$OSTYPE" == "darwin" ]; then
+if [[ "$OSTYPE" == "darwin"* ]]; then
     alias ls='ls -G'
-elif [ "$OSTYPE" == "linux-gnu" ]; then
+elif [[ "$OSTYPE" == "linux-gnu" ]]; then
     alias ls='ls --color=auto'
 fi
 
 # Bash completion
-if which brew > /dev/null && [ -f `brew --prefix`/etc/bash_completion ]; then
+if which brew > /dev/null && [[ -f `brew --prefix`/etc/bash_completion ]]; then
     source `brew --prefix`/etc/bash_completion;
-elif [ -f /etc/bash_completion ]; then
+elif [[ -f /etc/bash_completion ]]; then
     source /etc/bash_completion;
 fi
 
