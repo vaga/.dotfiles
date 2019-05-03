@@ -15,19 +15,18 @@ __prompt_command() {
     arrow=`echo -e "\001\e[96m\002\u2794\001\e[39m\002"`
 }
 PROMPT_COMMAND="__prompt_command"
-PS1='$exit_status \[\e[93m\]\t \[\e[95m\]\W $(__git_ps1 "\[\e[94m\]git(\[\e[93m\]%s\[\e[94m\]) ")$arrow '
+PS1='$exit_status \[\e[94m\]\t \[\e[93m\]\W $(__git_ps1 "\[\e[94m\]git[\[\e[95m\]%s\[\e[94m\]] ")$arrow '
 
 # Environment
+export CLICOLOR=1
 export EDITOR="vim"
+export LSCOLORS="ExGx"
+
 export GOPATH="$HOME/.go"
 export PATH="$PATH:$GOPATH/bin"
 
 # Aliases
-if [[ "$OSTYPE" == "darwin"* ]]; then
-    alias ls='ls -G'
-elif [[ "$OSTYPE" == "linux-gnu" ]]; then
-    alias ls='ls --color=auto'
-fi
+alias ls='ls -Fh'
 
 # Bash completion
 if which brew > /dev/null && [[ -f `brew --prefix`/etc/bash_completion ]]; then
@@ -35,4 +34,3 @@ if which brew > /dev/null && [[ -f `brew --prefix`/etc/bash_completion ]]; then
 elif [[ -f /etc/bash_completion ]]; then
     source /etc/bash_completion;
 fi
-
