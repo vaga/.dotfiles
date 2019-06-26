@@ -6,6 +6,21 @@
 - 
   category: default
   local: false
+  name: "editorconfig/editorconfig-vim"
+  opt: false
+- 
+  category: default
+  local: false
+  name: "jeffkreeftmeijer/vim-numbertoggle"
+  opt: false
+- 
+  category: default
+  local: false
+  name: "posva/vim-vue"
+  opt: false
+- 
+  category: default
+  local: false
   name: "tpope/vim-unimpaired"
   opt: false
 - 
