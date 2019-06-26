@@ -10,7 +10,6 @@ set autoread                        " automatically reload files changed outside
 set backspace=indent,eol,start      " allow backspacing over everything in insert mode
 " }}}
 
-" Spaces and Tabs {{{
 set tabstop=4                       " number of visual spaces per <Tab>
 set shiftwidth=4                    " number of spaces to use for each step of (auto)indent
 set softtabstop=4                   " number of spaces in tab when editing
@@ -35,11 +34,10 @@ set showcmd                         " show command in bottom bar
 set wildmenu                        " improve command-line completion
 set ruler                           " show the current cursor position
 set nowrap                          " don't wrap lines
-set scrolloff=3                     " minimal number of screen lines to above and below the cursor
-set scrolloff=5                     " minimal number of screen columns to keep to the left and to the righ of the cursor
 set textwidth=120                   " maximum width of text that is being inserted
 set colorcolumn=+1                  " highlight the screen column of the 'textwidth' value
-set cursorline                      " highlight the screen line of the cursor
+set scrolloff=3                     " minimal number of screen lines to above and below the cursor
+set sidescrolloff=5                 " minimal number of screen columns to keep to the left and to the righ of the cursor
 " }}}
 
 " Search {{{

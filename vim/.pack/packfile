@@ -6,6 +6,11 @@
 - 
   category: default
   local: false
+  name: "airblade/vim-gitgutter"
+  opt: false
+- 
+  category: default
+  local: false
   name: "editorconfig/editorconfig-vim"
   opt: false
 - 
