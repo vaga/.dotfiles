@@ -37,13 +37,18 @@ set number                          " show line numbers
 set numberwidth=4                   " minimal number of columns to use for the line number
 set showcmd                         " show command in bottom bar
 set wildmenu                        " improve command-line completion
-set ruler                           " show the current cursor position
 set nowrap                          " don't wrap lines
 set textwidth=120                   " maximum width of text that is being inserted
 set colorcolumn=+1                  " highlight the screen column of the 'textwidth' value
 set scrolloff=3                     " minimal number of screen lines to above and below the cursor
 set sidescrolloff=5                 " minimal number of screen columns to keep to the left and to the righ of the cursor
 set cursorline                      " highlight the screen line of the cursor
+set signcolumn=yes                  " always draw the sign column
+" }}}
+
+" Status line {{{
+set laststatus=2                    " always show the status line
+set ruler                           " show the current cursor position
 " }}}
 
 " Search {{{
