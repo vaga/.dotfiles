@@ -4,12 +4,17 @@
 
 " General {{{
 set encoding=utf-8                  " encoding used inside vim
-" set mouse=a                       " enable using the mouse
 set hidden                          " buffer becomes hidden when it is abandoned
 set autoread                        " automatically reload files changed outside of Vim
 set backspace=indent,eol,start      " allow backspacing over everything in insert mode
+set updatetime=1000                 " time in millisecond that is waited to fire CursorHold autocommand event
+set timeout                         " time out on mappings and key codes
+set timeoutlen=1000                 " time in millisecond that is waited for a mapped key sequence to complete
+set ttimeoutlen=100                 " time in millisecond that is waited for a key code to complete
+set lazyredraw                      " don't update the display when executing macros
 " }}}
 
+" Spaces and tabs
 set tabstop=4                       " number of visual spaces per <Tab>
 set shiftwidth=4                    " number of spaces to use for each step of (auto)indent
 set softtabstop=4                   " number of spaces in tab when editing
@@ -38,6 +43,7 @@ set textwidth=120                   " maximum width of text that is being insert
 set colorcolumn=+1                  " highlight the screen column of the 'textwidth' value
 set scrolloff=3                     " minimal number of screen lines to above and below the cursor
 set sidescrolloff=5                 " minimal number of screen columns to keep to the left and to the righ of the cursor
+set cursorline                      " highlight the screen line of the cursor
 " }}}
 
 " Search {{{
