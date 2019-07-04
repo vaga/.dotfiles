@@ -14,10 +14,11 @@ set ttimeoutlen=100                 " time in millisecond that is waited for a k
 set lazyredraw                      " don't update the display when executing macros
 " }}}
 
-" Spaces and tabs
+" Spaces and tabs {{{
 set tabstop=4                       " number of visual spaces per <Tab>
-set shiftwidth=4                    " number of spaces to use for each step of (auto)indent
 set softtabstop=4                   " number of spaces in tab when editing
+set shiftwidth=4                    " number of spaces to use for each step of (auto)indent
+set shiftround                      " round indent to multiple of 'shiftwidth'
 set expandtab                       " tabs are spaces
 set autoindent                      " always set autoindenting on
 set list                            " display unprintable characters
