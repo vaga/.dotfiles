@@ -2,6 +2,9 @@
 # .bashrc
 #
 
+# Shell options
+shopt -s globstar # Enable pattern '**' used in a filename expansion context
+
 # Prompt
 export GIT_PS1_SHOWDIRTYSTATE=1
 export GIT_PS1_SHOWSTASHSTATE=1
