@@ -1,2 +1,3 @@
-vim/*/*
-!vim/.pack/*
+vim/.netrwhist
+vim/pack/
+vim/plugin/_pack.vim

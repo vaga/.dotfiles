@@ -78,3 +78,11 @@ let g:netrw_altv=1                  " change from left splitting to right splitt
 filetype indent on                  " enable loading indent files for specific file types
 filetype plugin on                  " enable loading plugin files for specific file types
 " }}}
+
+" Template {{{
+augroup template
+  au!
+  " read in template files
+  autocmd BufNewFile *.* silent! 0r $HOME/.vim/templates/%:e.tpl
+augroup END
+" }}}
