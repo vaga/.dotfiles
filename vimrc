@@ -69,6 +69,11 @@ set nowritebackup                   " no backup before overwriting file
 set noswapfile                      " don't use a swapfile
 " }}}
 
+" Netrw {{{
+let g:netrw_banner=0                " suppress the banner
+let g:netrw_altv=1                  " change from left splitting to right splitting
+" }}}
+
 " Filetype {{{
 filetype indent on                  " enable loading indent files for specific file types
 filetype plugin on                  " enable loading plugin files for specific file types
