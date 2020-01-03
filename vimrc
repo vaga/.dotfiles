@@ -59,6 +59,10 @@ set hlsearch                        " highlight search results
 set incsearch                       " makes search act like search in modern browsers
 " }}}
 
+" Autocomplete {{{
+set completeopt=menuone             " show popup menu to show possible completions even if only one match
+" }}}
+
 " Backup {{{
 set nobackup                        " no backup before overwriting file
 set nowritebackup                   " no backup before overwriting file
