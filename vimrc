@@ -16,7 +16,6 @@ set lazyredraw                      " don't update the display when executing ma
 
 " Spaces and tabs {{{
 set tabstop=4                       " number of visual spaces per <Tab>
-set softtabstop=4                   " number of spaces in tab when editing
 set shiftwidth=4                    " number of spaces to use for each step of (auto)indent
 set shiftround                      " round indent to multiple of 'shiftwidth'
 set expandtab                       " tabs are spaces
@@ -41,8 +40,8 @@ set wildmenu                        " improve command-line completion
 set nowrap                          " don't wrap lines
 set textwidth=120                   " maximum width of text that is being inserted
 set colorcolumn=+1                  " highlight the screen column of the 'textwidth' value
-set scrolloff=3                     " minimal number of screen lines to above and below the cursor
-set sidescrolloff=5                 " minimal number of screen columns to keep to the left and to the righ of the cursor
+set scrolloff=5                     " minimal number of screen lines to above and below the cursor
+set sidescrolloff=5                 " minimal number of screen columns to keep to the left and to the right of the cursor
 set cursorline                      " highlight the screen line of the cursor
 set signcolumn=yes                  " always draw the sign column
 " }}}
@@ -75,14 +74,15 @@ let g:netrw_altv=1                  " change from left splitting to right splitt
 " }}}
 
 " Filetype {{{
-filetype indent on                  " enable loading indent files for specific file types
 filetype plugin on                  " enable loading plugin files for specific file types
+filetype indent on                  " enable loading indent files for specific file types
 " }}}
 
-" Template {{{
-augroup template
-  au!
-  " read in template files
-  autocmd BufNewFile *.* silent! 0r $HOME/.vim/templates/%:e.tpl
+" Autocmd {{{
+augroup templates
+    autocmd!
+    " read in template files
+    autocmd BufNewFile *.* silent! 0r $HOME/.vim/templates/%:e.tpl
+augroup END
 augroup END
 " }}}
