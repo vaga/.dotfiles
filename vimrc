@@ -84,5 +84,11 @@ augroup templates
     " read in template files
     autocmd BufNewFile *.* silent! 0r $HOME/.vim/templates/%:e.tpl
 augroup END
+
+augroup toggle_relativenumber
+    autocmd!
+    " show relative numbers in a buffer that has focus and is in normal mode
+    autocmd BufEnter,FocusGained,InsertLeave,WinEnter * if &number | :set relativenumber | endif
+    autocmd BufLeave,FocusLost,InsertEnter,WinLeave * if &number | :set norelativenumber | endif
 augroup END
 " }}}
