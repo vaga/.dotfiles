@@ -21,5 +21,10 @@
 - 
   category: default
   local: false
+  name: "justinmk/vim-dirvish"
+  opt: false
+- 
+  category: default
+  local: false
   name: "w0ng/vim-hybrid"
   opt: false
