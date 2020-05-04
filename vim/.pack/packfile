@@ -11,22 +11,12 @@
 - 
   category: default
   local: false
-  name: ctrlpvim/ctrlp.vim
-  opt: false
-- 
-  category: default
-  local: false
   name: "cweagans/vim-taskpaper"
   opt: false
 - 
   category: default
   local: false
   name: "editorconfig/editorconfig-vim"
-  opt: false
-- 
-  category: default
-  local: false
-  name: neomake/neomake
   opt: false
 - 
   category: default
