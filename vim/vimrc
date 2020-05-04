@@ -2,7 +2,7 @@
 " .vimrc
 "
 
-" General {{{
+" General {{{1
 set encoding=utf-8                  " encoding used inside vim
 set hidden                          " buffer becomes hidden when it is abandoned
 set autoread                        " automatically reload files changed outside of vim
@@ -13,9 +13,8 @@ set timeoutlen=1000                 " time in millisecond that is waited for a m
 set ttimeoutlen=100                 " time in millisecond that is waited for a key code to complete
 set lazyredraw                      " don't update the display when executing macros
 let mapleader="\\"                  " define leader key for custom mappings
-" }}}
 
-" Spaces and tabs {{{
+" Spaces and tabs {{{1
 set tabstop=4                       " number of visual spaces per <Tab>
 set shiftwidth=4                    " number of spaces to use for each step of (auto)indent
 set shiftround                      " round indent to multiple of 'shiftwidth'
@@ -23,16 +22,14 @@ set expandtab                       " tabs are spaces
 set autoindent                      " always set autoindenting on
 set list                            " display unprintable characters
 set listchars=tab:»\ ,trail:·       " customize the unprintable characters
-" }}}
 
-" Colors {{{
+" Colors {{{1
 syntax enable                       " enable syntax processing
 set termguicolors                   " enable true colors support
 set background=dark                 " adjust the color groups
 colorscheme hybrid                  " load color scheme
-" }}}
 
-" User Interface {{{
+" User Interface {{{1
 set title                           " show the filename in window titlebar
 set number                          " show line numbers
 set numberwidth=4                   " minimal number of columns to use for the line number
@@ -44,69 +41,57 @@ set sidescrolloff=5                 " minimal number of screen columns to keep t
 set textwidth=120                   " maximum width of text that is being inserted
 set colorcolumn=+1                  " highlight the screen column of the 'textwidth' value
 set nowrap                          " don't wrap lines
-" }}}
 
-" Status and command line {{{
+" Status and command line {{{1
 set laststatus=2                    " always show the status line
 set ruler                           " show the current cursor position
 set showcmd                         " show command in bottom bar
 set wildmenu                        " improve command-line completion
-set wildignore+=.DS_Store,*.tmp
-set wildignore+=*.jpg,*.png,*.gif
-" }}}
+set wildignorecase                  " ignore case for file completion
+set wildignore+=.DS_Store           " ignore some patterns for file completion:
+set wildignore+=*.jpg,*.jpeg,*.png,*.gif    " - ignore image files
+set wildignore+=*.eot,*.ttf,*.woff,*.woff2  " - ignore font files
+set wildignore+=*/node_modules/*,*/vendor/* " - ignore vendor directories
+set wildignore+=*/dist/*                    " - ignore build directories
 
-" Search {{{
+" Search {{{1
 set ignorecase                      " ignore case when searching
 set smartcase                       " override the 'ignorecase' option if the search pattern contains upper case characters
 set hlsearch                        " highlight search results
 set incsearch                       " makes search act like search in modern browsers
-" }}}
 
-" Autocomplete {{{
+" Autocomplete {{{1
 set completeopt=menuone             " show popup menu to show possible completions even if only one match
-set infercase                       " case of the match is adjusted depending on the typed text
-" }}}
 
-" Backup {{{
+" Backup {{{1
 set nobackup                        " no backup before overwriting file
 set nowritebackup                   " no backup before overwriting file
 set noswapfile                      " don't use a swapfile
-" }}}
 
-" Netrw {{{
-let g:netrw_banner=0                " suppress the banner
-let g:netrw_altv=1                  " change from left splitting to right splitting
-" }}}
-
-" Filetype {{{
+" Filetype {{{1
 filetype plugin on                  " enable loading plugin files for specific file types
 filetype indent on                  " enable loading indent files for specific file types
-" }}}
 
-" General mapping {{{
-"   Quickfix mapping {{{
-nnoremap [q :exe (v:count ? v:count : "")"cprevious"<CR>zv
-nnoremap ]q :exe (v:count ? v:count : "")"cnext"<CR>zv
-nnoremap [Q :exe (v:count ? v:count : "")"cfirst"<CR>zv
-nnoremap ]Q :exe (v:count ? v:count : "")"clast"<CR>zv
-"   }}}
+" Mapping {{{1
+" Quickfix mapping {{{2
+nnoremap <silent> [q :<C-U>exe v:count1"cprevious"<CR>zv
+nnoremap <silent> ]q :<C-U>exe v:count1"cnext"<CR>zv
+nnoremap <silent> [Q :exe "cfirst"<CR>zv
+nnoremap <silent> ]Q :exe "clast"<CR>zv
 
-"   Location mapping {{{
-nnoremap [l :exe (v:count ? v:count : "")"lprevious"<CR>zv
-nnoremap ]l :exe (v:count ? v:count : "")"lnext"<CR>zv
-nnoremap [L :exe (v:count ? v:count : "")"lfirst"<CR>zv
-nnoremap ]L :exe (v:count ? v:count : "")"llast"<CR>zv
-"   }}}
+" Location mapping {{{2
+nnoremap <silent> [l :<C-U>exe v:count1"lprevious"<CR>zv
+nnoremap <silent> ]l :<C-U>exe v:count1"lnext"<CR>zv
+nnoremap <silent> [L :exe "lfirst"<CR>zv
+nnoremap <silent> ]L :exe "llast"<CR>zv
 
-"   Buffer mapping {{{
-nnoremap [b :exe (v:count ? v:count : "")"bprevious"<CR>
-nnoremap ]b :exe (v:count ? v:count : "")"bnext"<CR>
-nnoremap [B :exe (v:count ? v:count : "")"bfirst"<CR>
-nnoremap ]B :exe (v:count ? v:count : "")"blast"<CR>
-"   }}}
-" }}}
+" Buffer mapping {{{2
+nnoremap <silent> [b :<C-U>exe v:count1"bprevious"<CR>
+nnoremap <silent> ]b :<C-U>exe v:count1"bnext"<CR>
+nnoremap <silent> [B :exe "bfirst"<CR>
+nnoremap <silent> ]B :exe "blast"<CR>
 
-" Autocmd {{{
+" Autocmd {{{1
 augroup templates
     autocmd!
     autocmd BufNewFile *.php silent! 0r $HOME/.vim/templates/php.tpl
@@ -119,4 +104,3 @@ augroup toggle_relativenumber
     autocmd BufEnter,FocusGained,InsertLeave,WinEnter * if &number | :set relativenumber | endif
     autocmd BufLeave,FocusLost,InsertEnter,WinLeave * if &number | :set norelativenumber | endif
 augroup END
-" }}}
