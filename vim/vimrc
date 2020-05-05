@@ -42,9 +42,18 @@ set textwidth=120                   " maximum width of text that is being insert
 set colorcolumn=+1                  " highlight the screen column of the 'textwidth' value
 set nowrap                          " don't wrap lines
 
-" Status and command line {{{1
+" Status line {{{1
 set laststatus=2                    " always show the status line
-set ruler                           " show the current cursor position
+set statusline=                     " determines the content of the status line
+set statusline+=\ %n\ \|            " - buffer number
+set statusline+=\ %f                " - filename
+set statusline+=\ %m%r%w            " - modified flag, readonly flag, preview flag
+set statusline+=%=                  " - right align
+set statusline+=%y                  " - filetype
+set statusline+=\ %3l:%-3c          " - line + column
+set statusline+=\ %3p%%\            " - percentage through file
+
+" Command line {{{1
 set showcmd                         " show command in bottom bar
 set wildmenu                        " improve command-line completion
 set wildignorecase                  " ignore case for file completion
