@@ -26,5 +26,10 @@
 - 
   category: default
   local: false
+  name: "prabirshrestha/vim-lsp"
+  opt: false
+- 
+  category: default
+  local: false
   name: "w0ng/vim-hybrid"
   opt: false

@@ -70,7 +70,7 @@ set hlsearch                        " highlight search results
 set incsearch                       " makes search act like search in modern browsers
 
 " Autocomplete {{{1
-set completeopt=menuone             " show popup menu to show possible completions even if only one match
+set completeopt=menu                " show popup menu to show possible completions
 
 " Backup {{{1
 set nobackup                        " no backup before overwriting file
