@@ -1,0 +1,5 @@
+-- uppercase for SQL keywords
+\set COMP_KEYWORD_CASE upper
+
+-- how to display null values
+\pset null '(NULL)'
