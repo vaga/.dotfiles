@@ -1,0 +1,87 @@
+# Vi mode {{{1
+bindkey -v
+KEYTIMEOUT=1
+
+bindkey -M viins "^?" backward-delete-char
+bindkey -M vicmd '?' history-incremental-search-backward
+bindkey -M vicmd '/' history-incremental-search-forward
+
+function _vi-mode-update-cursor() {
+  local _shape=0
+  case "${1:-default}" in
+    main)    _shape=6 ;; # vi insert: line
+    viins)   _shape=6 ;; # vi insert: line
+    isearch) _shape=6 ;; # inc search: line
+    command) _shape=6 ;; # read a command name
+    vicmd)   _shape=2 ;; # vi cmd: block
+    visual)  _shape=2 ;; # vi visual mode: block
+    viopp)   _shape=0 ;; # vi operation pending: blinking block
+    *)       _shape=0 ;;
+  esac
+  printf $'\e[%d q' "${_shape}"
+}
+
+function zle-keymap-select() {
+  _vi-mode-update-cursor "${KEYMAP}"
+}
+
+function zle-line-init() {
+  (( ${+terminfo[smkx]} )) && echoti smkx
+  _vi-mode-update-cursor "${KEYMAP}"
+}
+
+function zle-line-finish() {
+  (( ${+terminfo[rmkx]} )) && echoti rmkx
+  _vi-mode-update-cursor
+}
+
+zle -N zle-keymap-select
+zle -N zle-line-init
+
+# Brew {{{1
+eval "$(/opt/homebrew/bin/brew shellenv)"
+fpath=("$(brew --prefix)/share/zsh/site-functions" $fpath)
+
+# Editor {{{1
+export MANPAGER='nvim +Man!'
+export EDITOR='nvim'
+export VISUAL='nvim'
+
+# Prompt {{{1
+PROMPT=$'%(?.%F{10}\U2714.%F{9}\U2718) %F{4}%~ %F{11}\U276F%f '
+
+# Colors {{{1
+export CLICOLOR=1
+export LSCOLORS="exgx"
+
+# History {{{1
+HISTFILE=$HOME/.cache/zsh/.zsh_history
+HISTSIZE=10000
+SAVEHIST=10000
+
+setopt SHARE_HISTORY             # Share history between all sessions.
+setopt HIST_IGNORE_DUPS          # Do not record an event that was just recorded again.
+setopt HIST_IGNORE_ALL_DUPS      # Delete an old recorded event if a new event is a duplicate.
+setopt HIST_IGNORE_SPACE         # Do not record an event starting with a space.
+setopt HIST_VERIFY               # Do not execute immediately upon history expansion.
+
+# Completion {{{1
+autoload -Uz compinit
+compinit -d ~/.cache/zsh/.zcompdump
+
+setopt AUTO_LIST                 # Automatically list choices on ambiguous completion.
+setopt AUTO_MENU                 # Automatically use menu completion.
+setopt COMPLETE_IN_WORD          # Complete from both ends of a word.
+
+# Active completion cache
+zstyle ':completion:*' use-cache on
+# Define cache directory
+zstyle ':completion:*' cache-path ~/.cache/zsh/.zcompcache
+# Allow you to select in a menu
+zstyle ':completion:*' menu select yes=0
+# Case insensitive and allow for completing on the left side
+zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
+
+# Autosuggestions
+ZSH_AUTOSUGGEST_STRATEGY=(history completion)
+source ~/.config/zsh/plugins/zsh-autosuggestions.zsh

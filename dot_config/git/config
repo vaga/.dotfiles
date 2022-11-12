@@ -1,0 +1,14 @@
+[user]
+    name = "Fabien C."
+    email = fabien@vaga.io
+
+[core]
+    editor = nvim
+    ignorecase = false
+    excludesfile = ~/.config/git/ignore
+
+[init]
+    defaultBranch = main
+
+[pull]
+    rebase = true
