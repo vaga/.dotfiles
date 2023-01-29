@@ -1,16 +1,12 @@
-local cp = require('catppuccin.palettes').get_palette()
 local theme = require('lualine.themes.catppuccin')
-
-theme.normal.c.fg = cp.subtext0
 
 require('lualine').setup {
   options = {
     theme = theme,
     icons_enabled = false,
-    component_separators = { left = '/', right = '/' },
+    component_separators = { left = '·', right = '·' },
     section_separators = { left = '', right = '' },
     globalstatus = true,
-    always_divide_middle = true,
   },
 
   sections = {

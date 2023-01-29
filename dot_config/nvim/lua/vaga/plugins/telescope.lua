@@ -1,8 +1,8 @@
 require('telescope').setup {
   extensions = {
     file_browser = {
-      dir_icon = '',
-      dir_icon_hl = '',
+      dir_icon = ' ',
+      hijack_netrw = true,
     }
   },
 }

@@ -1,6 +1,10 @@
 local lspconfig = require('lspconfig')
 local util = require('lspconfig.util')
 
+local options = { noremap = true, silent = true }
+vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, options)
+vim.keymap.set('n', ']d', vim.diagnostic.goto_next, options)
+
 local on_attach = function(_, bufnr)
   vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
