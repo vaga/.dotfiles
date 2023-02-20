@@ -12,16 +12,18 @@ return require('packer').startup(function(use)
 
   use { 'gpanders/editorconfig.nvim' }
 
-  use { 'w0ng/vim-hybrid' }
-
   use {
     'catppuccin/nvim',
     as = 'catppuccin',
-    config = import('vaga.plugins.catpuccin'),
+    config = import('vaga.plugins.catppuccin'),
   }
 
   use {
     'neovim/nvim-lspconfig',
+    requires = {
+      'nvim-lua/plenary.nvim',
+      'jose-elias-alvarez/null-ls.nvim',
+    },
     config = import('vaga.plugins.lsp'),
   }
 

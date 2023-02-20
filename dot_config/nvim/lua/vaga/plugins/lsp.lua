@@ -1,18 +1,19 @@
 local lspconfig = require('lspconfig')
 local util = require('lspconfig.util')
+local null_ls = require('null-ls')
 
-local options = { noremap = true, silent = true }
-vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, options)
-vim.keymap.set('n', ']d', vim.diagnostic.goto_next, options)
+local opts = { noremap = true, silent = true }
+vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
+vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
 
-local on_attach = function(_, bufnr)
+local function on_attach(_, bufnr)
   vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
-  local options = { noremap = true, silent = true, buffer = bufnr }
-  vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, options)
-  vim.keymap.set('n', 'gd', vim.lsp.buf.definition, options)
-  vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, options)
-  vim.keymap.set('n', 'K', vim.lsp.buf.hover, options)
+  local bufopts = { noremap = true, silent = true, buffer = bufnr }
+  vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
+  vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
+  vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
+  vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
 end
 
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
@@ -30,7 +31,7 @@ lspconfig.intelephense.setup {
 }
 
 -- LUA {{{1
-lspconfig.sumneko_lua.setup {
+lspconfig.lua_ls.setup {
   on_attach = on_attach,
   capabilities = capabilities,
   settings = {
@@ -67,3 +68,16 @@ lspconfig.volar.setup {
   on_attach = on_attach,
   capabilities = capabilities,
 }
+
+-- Prettier & co
+null_ls.setup({
+  on_attach = function(_, bufnr)
+    local bufopts = { noremap=true, silent=true, buffer=bufnr }
+    vim.keymap.set('n', '<space>f', function() vim.lsp.buf.format { async = true } end, bufopts)
+  end,
+  sources = {
+    null_ls.builtins.formatting.prettier.with({
+      filetypes = { 'javascript', 'typescript', 'vue', 'css', 'scss', 'json', 'html', 'markdown' },
+    }),
+  },
+})
