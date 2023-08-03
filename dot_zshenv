@@ -1,1 +1,4 @@
 export ZDOTDIR="$HOME/.config/zsh/"
+
+export PSQLRC="$HOME/.config/psql/psqlrc"
+export PSQL_HISTORY="$HOME/.local/state/psql_history"
