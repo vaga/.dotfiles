@@ -46,7 +46,26 @@ export EDITOR='nvim'
 export VISUAL='nvim'
 
 # Prompt {{{1
-PROMPT=$'%(?.%F{10}\U2714.%F{9}\U2718) %F{4}%~ %F{11}\U276F%f '
+function _get_git_branch() {
+    local _root="${PWD}"
+    while [ "${_root}" != '/' ] && [ ! -e "${_root}/.git" ]; do
+        _root="${_root:h}"
+    done
+
+    if [ -e "${_root}/.git/HEAD" ]; then
+        read -r _head < "$_root/.git/HEAD" || return
+        case "${_head}" in
+            ref:*) print "%F{cyan}(${_head#ref: refs/heads/}) " ;;
+            "") ;;
+            *) print "%F{cyan}(${_head:0:9}) " ;;
+        esac
+        return 0
+    fi
+    return 1
+}
+
+setopt prompt_subst
+PROMPT=$'%(?.%F{green}\U2714.%F{red}\U2718) %F{blue}%~ $(_get_git_branch)%F{yellow}\U276F%f '
 
 # Colors {{{1
 export CLICOLOR=1
