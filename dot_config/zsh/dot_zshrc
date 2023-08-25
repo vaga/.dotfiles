@@ -45,6 +45,10 @@ zle -N zle-keymap-select
 zle -N zle-line-init
 zle -N zle-line-finish
 
+autoload -Uz edit-command-line
+zle -N edit-command-line
+bindkey -M vicmd ! edit-command-line
+
 # Brew {{{1
 eval "$(brew shellenv)"
 fpath=("$(brew --prefix)/share/zsh/site-functions" $fpath)
@@ -52,24 +56,42 @@ fpath=("$(brew --prefix)/share/zsh/site-functions" $fpath)
 # Prompt {{{1
 function _get_git_branch() {
     local _root="${PWD}"
-    while [ "${_root}" != '/' ] && [ ! -e "${_root}/.git" ]; do
+    while [ "${_root}" != "${HOME}" ] && [ ! -d "${_root}/.git" ]; do
         _root="${_root:h}"
     done
 
     if [ -e "${_root}/.git/HEAD" ]; then
         read -r _head < "$_root/.git/HEAD" || return
+        local _branch=""
         case "${_head}" in
-            ref:*) print "%F{cyan}(${_head#ref: refs/heads/}) " ;;
+            ref:*) _branch="${_head#ref: refs/heads/}" ;;
             "") ;;
-            *) print "%F{cyan}(${_head:0:9}) " ;;
+            *) _branch="${_head:0:7}" ;;
         esac
+        local _prompt="%F{cyan}(${_branch})"
+
+        local _status="$(git --no-optional-locks status --porcelain=v2 --branch 2>/dev/null | head -n5)"
+        if [ -z "${_status}" ]; then
+            print "${_prompt} "
+            return 0
+        fi
+        if [ ! -z "$(echo ${_status} | grep -m1 '^[^#]')" ]; then
+            _prompt="\e[3m${_prompt}\e[0m"
+        fi
+        if [ ! -z "$(echo ${_status} | grep -m1 '^# branch.ab \(+[1-9][0-9]* -[0-9]\+\|+[0-9]\+ -[1-9][0-9]*\)')" ]; then
+            _prompt="%B${_prompt}%b"
+        fi
+        print "${_prompt} " 
+
         return 0
     fi
+
     return 1
 }
 
 setopt prompt_subst
 PROMPT=$'%(?.%F{green}\U2714.%F{red}\U2718) %F{blue}%~ $(_get_git_branch)%F{yellow}\U276F%f '
+PS2=$' %F{yellow}%_ \U2026%f '
 
 # Editor {{{1
 export MANPAGER='nvim +Man!'
