@@ -24,7 +24,7 @@ return {
     local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
     -- Golang {{{1
-    lspconfig.intelephense.setup({
+    lspconfig.gopls.setup({
       on_attach = on_attach,
       capabilities = capabilities,
     })
