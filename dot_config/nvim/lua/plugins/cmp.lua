@@ -5,11 +5,14 @@ return {
     'hrsh7th/cmp-nvim-lsp',
     'hrsh7th/cmp-buffer',
     'hrsh7th/cmp-path',
+    'zbirenbaum/copilot-cmp',
     'L3MON4D3/LuaSnip',
   },
 
   config = function()
     local cmp = require('cmp')
+
+    require("copilot_cmp").setup()
 
     cmp.setup({
       snippet = {
@@ -21,11 +24,13 @@ return {
         { name = 'nvim_lsp' },
         { name = 'buffer' },
         { name = 'path' },
+        { name = "copilot" },
       },
       mapping = {
-        ['<C-n>'] = cmp.mapping(cmp.mapping.select_next_item()),
-        ['<C-p>'] = cmp.mapping(cmp.mapping.select_prev_item()),
+        ['<C-n>'] = cmp.mapping.select_next_item(),
+        ['<C-p>'] = cmp.mapping.select_prev_item(),
         ['<CR>'] = cmp.mapping.confirm(),
+        ['<C-Space>'] = cmp.mapping.complete(),
       },
     })
   end,
