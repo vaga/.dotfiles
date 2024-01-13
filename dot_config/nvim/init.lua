@@ -20,6 +20,9 @@ require('lazy').setup({
   spec = {
     { import = 'plugins' },
   },
+  ui = {
+    border = 'rounded',
+  },
   performance = {
     rtp = {
       disabled_plugins = {
@@ -29,6 +32,7 @@ require('lazy').setup({
         'netrwPlugin',
         'tarPlugin',
         'tohtml',
+        'tutor',
         'zipPlugin',
       },
     },

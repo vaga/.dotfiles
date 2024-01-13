@@ -3,14 +3,12 @@ return {
 
   config = function()
     require('nvim-treesitter.configs').setup({
-      ensure_installed = { 'php', 'go', 'vue', 'typescript', 'javascript', 'lua', 'scss', 'css' },
+      ensure_installed = { 'c', 'cpp', 'css', 'go', 'javascript', 'lua', 'php', 'rust', 'scss', 'typescript', 'vue' },
       highlight = {
         enable = true,
-        additional_vim_regex_highlighting = { 'php' },
       },
       indent = {
         enable = true,
-        disable = { 'php' },
       },
     })
   end,
