@@ -10,18 +10,36 @@ return {
     local lspconfig = require('lspconfig')
     local util = require('lspconfig.util')
 
+    vim.diagnostic.config({
+      float = { border = "rounded" },
+    })
+
+    vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
+      border = "rounded",
+    })
+    vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
+      border = "rounded",
+    })
+
+    local capabilities = require('cmp_nvim_lsp').default_capabilities()
+
     local function on_attach(_, bufnr)
       local bufopts = { noremap = true, silent = true, buffer = bufnr }
+
+      vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, bufopts)
+
       vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
       vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
       vim.keymap.set('n', 'gt', vim.lsp.buf.type_definition, bufopts)
       vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
+
       vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
+      vim.keymap.set('n', '<leader>k', vim.lsp.buf.signature_help, bufopts)
+      vim.keymap.set('i', '<C-k>', vim.lsp.buf.signature_help, bufopts)
+
       vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, bufopts)
       vim.keymap.set('n', ']d', vim.diagnostic.goto_next, bufopts)
     end
-
-    local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
     -- Golang {{{1
     lspconfig.gopls.setup({
