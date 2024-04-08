@@ -102,12 +102,15 @@ export MANPAGER='nvim +Man!'
 export EDITOR='nvim'
 export VISUAL='nvim'
 
+# Aliases {{{1
+alias vim='nvim'
+
 # Colors {{{1
 export CLICOLOR=1
-export LSCOLORS="exgx"
+export LSCOLORS='exgx'
 
 # History {{{1
-HISTFILE=$HOME/.cache/zsh/.zsh_history
+HISTFILE=$HOME/.local/state/zsh_history
 HISTSIZE=10000
 SAVEHIST=10000
 

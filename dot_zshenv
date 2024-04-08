@@ -1,4 +1,28 @@
-export ZDOTDIR="$HOME/.config/zsh/"
+# $HOME/.config/ is the default directory for configuration files (XDG_CONFIG_HOME)
+# $HOME/.cache/ is the default directory for non-essential data files (XDG_CACHE_HOME)
+# $HOME/.local/share/ is the default directory for data files (XDG_DATA_HOME)
+# $HOME/.local/state/ is the default directory for storing runtime data (XDG_STATE_HOME)
 
-export PSQLRC="$HOME/.config/psql/psqlrc"
-export PSQL_HISTORY="$HOME/.local/state/psql_history"
+# composer
+export COMPOSER_HOME=$HOME/.config/composer
+export COMPOSER_CACHE_DIR=$HOME/.cache/composer
+
+# go
+export GOPATH=$HOME/.local/share/go
+export GOMODCACHE=$HOME/.cache/go/mod
+
+# mysql
+export MYSQL_HISTFILE=$HOME/.local/state/mysql_history
+
+# node
+export NODE_REPL_HISTORY=$HOME/.local/state/node_repl_history
+
+# psql
+export PSQLRC=$HOME/.config/psql/psqlrc
+export PSQL_HISTORY=$HOME/.local/state/psql_history
+
+# redis-cli
+export REDISCLI_HISTFILE=$HOME/.local/state/rediscli_history
+
+# zsh
+export ZDOTDIR=$HOME/.config/zsh/
