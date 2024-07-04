@@ -1,14 +1,12 @@
 vim.g.mapleader = ' ' -- define <Leader> key
 vim.g.maplocalleader = ' ' -- define <LocalLeader> key
+vim.g.markdown_recommended_style = 0
 
 -- General {{{1
-vim.opt.hidden = true -- buffer becomes hiddden when it is abandonned
 vim.opt.updatetime = 50 -- time in millisecond that is waited to fire CursorHold autocommand event
-vim.opt.timeoutlen = 300 -- time in millisecond to wait for a mapped sequence to complete
-vim.opt.lazyredraw = true -- don't redraw the screen when executing macros
+vim.opt.timeoutlen = 500 -- time in millisecond to wait for a mapped sequence to complete
 vim.opt.clipboard = 'unnamedplus' -- use clipboard register '+' for all yank, delete, change and put operation
 vim.opt.mouse = '' -- disable mouse
-
 
 -- Spaces and tabs {{{1
 vim.opt.tabstop = 4 -- number of visual spaces per <Tab>
@@ -22,7 +20,6 @@ vim.opt.listchars = { -- customize the unprintable characters
 }
 
 -- User interface {{{1
-vim.opt.termguicolors = true -- enable 24-bit color
 vim.opt.cursorline = true -- highlight the screen line of the cursor
 vim.opt.wrap = false -- don't wrap lines
 vim.opt.number = true -- show the line number
@@ -35,6 +32,7 @@ vim.opt.signcolumn = 'yes' -- always draw the sign column
 vim.opt.showmode = false -- don't put mode on the last line
 vim.opt.splitright = true -- put the new window right of the current one
 vim.opt.splitbelow = true -- put the new window below of the current one
+vim.opt.pumheight = 20 -- maximum number of items to show in the popup menu
 
 -- Command line {{{1
 vim.opt.wildignorecase = true -- ignore case for file completion

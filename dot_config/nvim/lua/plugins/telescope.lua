@@ -19,7 +19,7 @@ return {
     require('telescope').load_extension('file_browser')
 
     local options = { noremap = true, silent = true }
-    vim.keymap.set('n', '<Leader>fd', function()
+    vim.keymap.set('n', '<Leader>ft', function()
       require('telescope').extensions.file_browser.file_browser({ path = '%:p:h' })
     end, options)
     vim.keymap.set('n', '<Leader>ff', function()
@@ -30,6 +30,12 @@ return {
     end, options)
     vim.keymap.set('n', '<Leader>fc', function()
       require('telescope.builtin').find_files({ cwd = '~/.config/nvim' })
+    end, options)
+    vim.keymap.set('n', '<Leader>fb', function()
+      require('telescope.builtin').buffers()
+    end, options)
+    vim.keymap.set('n', '<Leader>fd', function()
+      require('telescope.builtin').diagnostics()
     end, options)
   end,
 }

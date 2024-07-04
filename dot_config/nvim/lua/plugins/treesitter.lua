@@ -3,7 +3,21 @@ return {
 
   config = function()
     require('nvim-treesitter.configs').setup({
-      ensure_installed = { 'c', 'cpp', 'css', 'go', 'javascript', 'lua', 'php', 'rust', 'scss', 'typescript', 'vue' },
+      ensure_installed = {
+        'markdown',
+        'c',
+        'cpp',
+        'css',
+        'go',
+        'javascript',
+        'lua',
+        'php',
+        'rust',
+        'scss',
+        'typescript',
+        'vue',
+        'gdscript',
+      },
       highlight = {
         enable = true,
       },

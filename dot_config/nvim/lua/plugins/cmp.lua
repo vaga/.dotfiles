@@ -14,13 +14,6 @@ return {
     local cmp = require('cmp')
     local luasnip = require('luasnip')
 
-    -- load copilot and its cmp source
-    require('copilot').setup({
-      suggestion = { enabled = false },
-      panel = { enabled = false },
-    })
-    require("copilot_cmp").setup()
-
     cmp.setup({
       snippet = {
         expand = function(args)
@@ -34,19 +27,19 @@ return {
       sources = cmp.config.sources({
         { name = 'nvim_lsp' },
         { name = 'path' },
-        { name = 'copilot' },
+        { name = 'buffer' },
       }),
       mapping = {
         ['<C-Space>'] = cmp.mapping.complete(),
         ['<C-n>'] = cmp.mapping.select_next_item(),
         ['<C-p>'] = cmp.mapping.select_prev_item(),
         ['<C-y>'] = cmp.mapping.confirm({ select = true }),
-        ['<C-l>'] = cmp.mapping(function ()
+        ['<C-l>'] = cmp.mapping(function()
           if luasnip.expand_or_jumpable() then
             luasnip.expand_or_jump()
           end
         end, { 'i', 's' }),
-        ['<C-h>'] = cmp.mapping(function ()
+        ['<C-h>'] = cmp.mapping(function()
           if luasnip.locally_jumpable(-1) then
             luasnip.jump(-1)
           end

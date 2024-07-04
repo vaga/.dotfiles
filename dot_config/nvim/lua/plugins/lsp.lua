@@ -11,15 +11,16 @@ return {
     local util = require('lspconfig.util')
 
     vim.diagnostic.config({
-      float = { border = "rounded" },
+      float = { border = 'rounded' },
+      virtual_text = {
+        prefix = '●',
+        spacing = 4,
+      },
     })
 
-    vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
-      border = "rounded",
-    })
-    vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
-      border = "rounded",
-    })
+    vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, { border = 'rounded' })
+    vim.lsp.handlers['textDocument/signatureHelp'] =
+      vim.lsp.with(vim.lsp.handlers.signature_help, { border = 'rounded' })
 
     local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
@@ -34,11 +35,9 @@ return {
       vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
 
       vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
+
       vim.keymap.set('n', '<leader>k', vim.lsp.buf.signature_help, bufopts)
       vim.keymap.set('i', '<C-k>', vim.lsp.buf.signature_help, bufopts)
-
-      vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, bufopts)
-      vim.keymap.set('n', ']d', vim.diagnostic.goto_next, bufopts)
     end
 
     -- Golang {{{1
@@ -63,11 +62,25 @@ return {
       end
     end
 
-    lspconfig.volar.setup({
-      filetypes = { 'javascript', 'typescript', 'vue' },
-      on_new_config = on_new_config,
+    lspconfig.tsserver.setup({
+      filetypes = { 'typescript', 'javascript', 'vue' },
       on_attach = on_attach,
       capabilities = capabilities,
+      on_new_config = on_new_config,
+      init_options = {
+        plugins = {
+          {
+            name = '@vue/typescript-plugin',
+            location = os.getenv('HOME') .. '/.config/yarn/global/node_modules/@vue/language_server',
+            languages = { 'vue' },
+          },
+        },
+      },
+    })
+
+    lspconfig.volar.setup({
+      capabilities = capabilities,
+      on_new_config = on_new_config,
     })
 
     -- LUA {{{1
@@ -79,7 +92,10 @@ return {
           runtime = { version = 'LuaJIT' },
           workspace = {
             checkThirdParty = false,
-            library = { vim.env.VIMRUNTIME },
+            library = {
+              vim.env.VIMRUNTIME,
+              '${3rd}/luv/library',
+            },
           },
         },
       },
