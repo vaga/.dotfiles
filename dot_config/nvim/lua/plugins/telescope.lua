@@ -37,5 +37,11 @@ return {
     vim.keymap.set('n', '<Leader>fd', function()
       require('telescope.builtin').diagnostics()
     end, options)
+    vim.keymap.set('n', '<Leader>fs', function()
+      require('telescope.builtin').lsp_document_symbols()
+    end, options)
+    vim.keymap.set('n', '<Leader>fS', function()
+      require('telescope.builtin').lsp_dynamic_workspace_symbols()
+    end, options)
   end,
 }
