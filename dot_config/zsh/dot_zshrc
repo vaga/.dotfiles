@@ -2,12 +2,35 @@
 bindkey -v
 KEYTIMEOUT=1
 
-bindkey -M viins "^?" backward-delete-char
+# Update cursor appearance when the keymap changes
+function zle-line-init() {
+  zle -K main
+}
+function zle-keymap-select() {
+  local _shape=0
+  case "${KEYMAP:-default}" in
+    main|viins) _shape=6 ;;
+    vicmd)      _shape=2 ;;
+    *)          _shape=0 ;;
+  esac
+  printf $'\e[%d q' "${_shape}"
+}
+zle -N zle-line-init
+zle -N zle-keymap-select
 
+bindkey -M viins "^?" backward-delete-char
+bindkey -M vicmd "/" history-incremental-search-backward
+bindkey -M vicmd "?" history-incremental-search-forward
+
+# Edit current command line with $EDITOR
+autoload -Uz edit-command-line
+zle -N edit-command-line
+bindkey -M vicmd ! edit-command-line
+
+# Add Vi text-objects for brackets and quotes
 autoload -Uz select-quoted select-bracketed
 zle -N select-quoted
 zle -N select-bracketed
-
 for m in visual viopp; do
     for c in {a,i}{\',\",\`}; do
         bindkey -M $m $c select-quoted
@@ -17,41 +40,8 @@ for m in visual viopp; do
     done
 done
 
-function _vi-mode-update-cursor() {
-  local _shape=0
-  case "${KEYMAP:-default}" in
-    main|viins) _shape=6 ;;
-    vicmd)      _shape=2 ;;
-    *)          _shape=0 ;;
-  esac
-  printf $'\e[%d q' "${_shape}"
-}
-
-function zle-keymap-select() {
-  _vi-mode-update-cursor "${KEYMAP}"
-}
--
-function zle-line-init() {
-  (( ${+terminfo[smkx]} )) && echoti smkx
-  _vi-mode-update-cursor "${KEYMAP}"
-}
- 
-function zle-line-finish() {
-  (( ${+terminfo[rmkx]} )) && echoti rmkx
-  _vi-mode-update-cursor
-}
-
-zle -N zle-keymap-select
-zle -N zle-line-init
-zle -N zle-line-finish
-
-autoload -Uz edit-command-line
-zle -N edit-command-line
-bindkey -M vicmd ! edit-command-line
-
 # Brew {{{1
 eval "$(/opt/homebrew/bin/brew shellenv)"
-fpath=("$(brew --prefix)/share/zsh/site-functions" $fpath)
 
 # Prompt {{{1
 function _get_git_branch() {
@@ -69,7 +59,7 @@ function _get_git_branch() {
             *) _branch="${_head:0:7}" ;;
         esac
 
-         local _prompt="(${_branch})"
+        local _prompt="(${_branch})"
 
         local _status="$(git --no-optional-locks status --porcelain=v2 --branch 2>/dev/null | head -n5)"
         if [ -z "${_status}" ]; then
@@ -81,12 +71,10 @@ function _get_git_branch() {
         else
             _prompt="%F{cyan}${_prompt}"
         fi
-
         if [ ! -z "$(echo ${_status} | grep -m1 '^[^#]')" ]; then
             _prompt="%B${_prompt}%b"
         fi
         print "${_prompt} "
-
         return 0
     fi
 
@@ -97,23 +85,18 @@ setopt prompt_subst
 PROMPT=$'%(?.%F{green}\U2714.%F{red}\U2718) %F{blue}%~ $(_get_git_branch)%F{yellow}\U276F%f '
 PS2=$' %F{yellow}%_ \U2026%f '
 
-# Editor {{{1
-export MANPAGER='nvim +Man!'
-export EDITOR='nvim'
-export VISUAL='nvim'
-
 # Aliases {{{1
+alias vi='nvim'
 alias vim='nvim'
+alias ls='ls --color=auto'
+alias ll='ls -l'
+alias grep='grep --color=auto'
 
-# Colors {{{1
-export CLICOLOR=1
-export LSCOLORS='exgx'
+# Auto cd {{{1
+setopt AUTO_CD                   # Allows navigating to a directory without using "cd".
+setopt CD_SILENT                 # Never print the working directory after a "cd".
 
 # History {{{1
-HISTFILE=$HOME/.local/state/zsh_history
-HISTSIZE=10000
-SAVEHIST=10000
-
 setopt SHARE_HISTORY             # Share history between all sessions.
 setopt HIST_IGNORE_DUPS          # Do not record an event that was just recorded again.
 setopt HIST_IGNORE_ALL_DUPS      # Delete an old recorded event if a new event is a duplicate.
@@ -133,9 +116,11 @@ zstyle ':completion:*' use-cache on
 # Define cache directory
 zstyle ':completion:*' cache-path ~/.cache/zsh/.zcompcache
 # Allow you to select in a menu
-zstyle ':completion:*' menu select yes=0
-# Case insensitive and allow for completing on the left side
+zstyle ':completion:*' menu select
+# Enable flexible matching for autocompletion 
 zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
+# Add colors to files and directories
+zstyle ':completion:*:default' list-colors 'di=34:ln=35:so=32:pi=33:ex=31:bd=34;40:cd=35;40:su=31;40:sg=36;40:tw=32;40:ow=33;40'
 
 # Autosuggestions
 ZSH_AUTOSUGGEST_STRATEGY=(history completion)
