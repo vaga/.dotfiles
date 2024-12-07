@@ -4,79 +4,80 @@ return {
   dependencies = {
     'nvim-lua/plenary.nvim',
     'hrsh7th/cmp-nvim-lsp',
+    'nvim-telescope/telescope.nvim',
   },
 
   config = function()
     local lspconfig = require('lspconfig')
     local util = require('lspconfig.util')
 
-    vim.diagnostic.config({
-      float = { border = 'rounded' },
-      virtual_text = {
-        prefix = '●',
-        spacing = 4,
-      },
+    local win_style = { border = 'rounded' }
+    vim.diagnostic.config({ float = win_style, virtual_text = { prefix = '●', spacing = 4 } })
+    vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, win_style)
+    vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(vim.lsp.handlers.signature_help, win_style)
+
+    local capabilities = vim.lsp.protocol.make_client_capabilities()
+    capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
+
+    vim.api.nvim_create_autocmd('LspAttach', {
+      group = vim.api.nvim_create_augroup('vaga-lsp-attach', { clear = true }),
+      callback = function(event)
+        local map = function(mode, lhs, rhs, desc)
+          vim.keymap.set(mode, lhs, rhs, { buffer = event.buf, desc = 'LSP: ' .. desc })
+        end
+
+        map('n', '<leader>rn', vim.lsp.buf.rename, 'Rename')
+        map('n', 'gd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinitions')
+        map('n', 'gI', require('telescope.builtin').lsp_implementations, '[G]oto [I]mplementions')
+        map('n', 'gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
+        map('n', 'gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
+
+        map('n', '<leader>k', vim.lsp.buf.signature_help, 'Show signature help')
+        map('i', '<C-k>', vim.lsp.buf.signature_help, 'Show signature help')
+      end,
     })
-
-    vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, { border = 'rounded' })
-    vim.lsp.handlers['textDocument/signatureHelp'] =
-      vim.lsp.with(vim.lsp.handlers.signature_help, { border = 'rounded' })
-
-    local capabilities = require('cmp_nvim_lsp').default_capabilities()
-
-    local function on_attach(_, bufnr)
-      local bufopts = { noremap = true, silent = true, buffer = bufnr }
-
-      vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, bufopts)
-
-      vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
-      vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
-      vim.keymap.set('n', 'gt', vim.lsp.buf.type_definition, bufopts)
-      vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
-
-      vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
-
-      vim.keymap.set('n', '<leader>k', vim.lsp.buf.signature_help, bufopts)
-      vim.keymap.set('i', '<C-k>', vim.lsp.buf.signature_help, bufopts)
-    end
 
     -- Golang {{{1
     lspconfig.gopls.setup({
-      on_attach = on_attach,
       capabilities = capabilities,
     })
 
     -- PHP {{{1
     lspconfig.intelephense.setup({
-      on_attach = on_attach,
       capabilities = capabilities,
     })
 
     -- Javascript, Typescript, Vue {{{1
-    local function on_new_config(config, root_dir)
-      config.init_options.typescript.tsdk = os.getenv('HOME') .. '/.config/yarn/global/node_modules/typescript/lib'
-
-      local project_path = util.path.join(root_dir, 'node_modules', 'typescript', 'lib')
-      if util.path.exists(project_path) then
-        config.init_options.typescript.tsdk = project_path
-      end
-    end
-
-    lspconfig.tsserver.setup({
+    lspconfig.ts_ls.setup({
       filetypes = { 'typescript', 'javascript', 'vue' },
-      on_attach = on_attach,
       capabilities = capabilities,
-      on_new_config = on_new_config,
       init_options = {
+        typescript = {
+          tsdk = '',
+        },
         plugins = {
           {
             name = '@vue/typescript-plugin',
-            location = os.getenv('HOME') .. '/.config/yarn/global/node_modules/@vue/language_server',
-            languages = { 'vue' },
+            location = os.getenv('HOME') .. '/.config/yarn/global/node_modules/@vue/typescript-plugin',
+            languages = { 'vue', 'typescript', 'javascript' },
           },
         },
       },
     })
+
+    local function on_new_config(config, root_dir)
+      config.init_options.typescript.tsdk = os.getenv('HOME') .. '/.config/yarn/global/node_modules/typescript/lib'
+
+      local project_path = util.search_ancestors(root_dir, function(path)
+        local lib_path = util.path.join(path, 'node_modules', 'typescript', 'lib')
+        return util.path.exists(lib_path)
+      end)
+
+      local lib_path = util.path.join(project_path, 'node_modules', 'typescript', 'lib')
+      if util.path.exists(lib_path) then
+        config.init_options.typescript.tsdk = lib_path
+      end
+    end
 
     lspconfig.volar.setup({
       capabilities = capabilities,
@@ -85,7 +86,6 @@ return {
 
     -- LUA {{{1
     lspconfig.lua_ls.setup({
-      on_attach = on_attach,
       capabilities = capabilities,
       settings = {
         Lua = {
@@ -103,7 +103,6 @@ return {
 
     -- GDScript {{{1
     lspconfig.gdscript.setup({
-      on_attach = on_attach,
       capabilities = capabilities,
     })
   end,
