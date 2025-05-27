@@ -1,24 +1,31 @@
 return {
   'nvim-telescope/telescope.nvim',
+  enabled = true,
 
   dependencies = {
     'nvim-lua/plenary.nvim',
     'nvim-telescope/telescope-file-browser.nvim',
   },
 
-  config = function()
-    require('telescope').setup({
-      extensions = {
-        file_browser = {
-          dir_icon = ' ',
-          hijack_netrw = true,
-        },
+  opts = {
+    defaults = {
+      borderchars = { '─', '│', '─', '│', '┌', '┐', '┘', '└' },
+    },
+    extensions = {
+      file_browser = {
+        dir_icon = ' ',
+        hijack_netrw = true,
       },
-    })
+    },
+  },
 
-    require('telescope').load_extension('file_browser')
+  config = function(_, opts)
+    local telescope = require('telescope')
+    telescope.setup(opts)
+    telescope.load_extension('file_browser')
 
     local options = { noremap = true, silent = true }
+
     vim.keymap.set('n', '<Leader>ft', function()
       require('telescope').extensions.file_browser.file_browser({ path = '%:p:h' })
     end, options)
@@ -43,5 +50,19 @@ return {
     vim.keymap.set('n', '<Leader>fS', function()
       require('telescope.builtin').lsp_dynamic_workspace_symbols()
     end, options)
+
+    -- TODO: remove when telescope uses winborder option
+    vim.api.nvim_create_autocmd('User', {
+      pattern = 'TelescopeFindPre',
+      callback = function()
+        vim.opt_local.winborder = 'none'
+        vim.api.nvim_create_autocmd('WinLeave', {
+          once = true,
+          callback = function()
+            vim.opt_local.winborder = 'single'
+          end,
+        })
+      end,
+    })
   end,
 }

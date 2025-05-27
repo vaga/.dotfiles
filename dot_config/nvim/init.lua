@@ -5,36 +5,11 @@ if not vim.uv.fs_stat(lazypath) then
     'git',
     'clone',
     '--filter=blob:none',
-    'https://github.com/folke/lazy.nvim.git',
     '--branch=stable',
+    'https://github.com/folke/lazy.nvim.git',
     lazypath,
   })
 end
-
 vim.opt.rtp:prepend(lazypath)
 
--- Set default neovim options
-require('options')
-
-require('lazy').setup({
-  spec = {
-    { import = 'plugins' },
-  },
-  ui = {
-    border = 'rounded',
-  },
-  performance = {
-    rtp = {
-      disabled_plugins = {
-        'gzip',
-        'matchit',
-        'matchparen',
-        'netrwPlugin',
-        'tarPlugin',
-        'tohtml',
-        'tutor',
-        'zipPlugin',
-      },
-    },
-  },
-})
+require('vaga')

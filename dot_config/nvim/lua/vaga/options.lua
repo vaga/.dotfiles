@@ -1,6 +1,5 @@
 vim.g.mapleader = ' ' -- define <Leader> key
-vim.g.maplocalleader = ' ' -- define <LocalLeader> key
-vim.g.markdown_recommended_style = 0
+vim.g.maplocalleader = '\\' -- define <LocalLeader> key
 
 -- General {{{1
 vim.opt.updatetime = 50 -- time in millisecond that is waited to fire CursorHold autocommand event
@@ -24,7 +23,6 @@ vim.opt.cursorline = true -- highlight the screen line of the cursor
 vim.opt.wrap = false -- don't wrap lines
 vim.opt.number = true -- show the line number
 vim.opt.relativenumber = true -- show the line number relative to the line with the cursor in front of each line
-vim.opt.numberwidth = 4 -- minimal number of columns to use for the line number
 vim.opt.scrolloff = 5 -- minimal number of screen lines to above and below the cursor
 vim.opt.sidescrolloff = 5 -- minimal number of screen columns to the left and to the right of the cursor
 vim.opt.virtualedit = 'block' -- allow virtual editing in visual mode
@@ -33,14 +31,14 @@ vim.opt.showmode = false -- don't put mode on the last line
 vim.opt.splitright = true -- put the new window right of the current one
 vim.opt.splitbelow = true -- put the new window below of the current one
 vim.opt.pumheight = 20 -- maximum number of items to show in the popup menu
+vim.opt.formatoptions = 'jcroqlnt' -- automatic formatting for comments and text
+vim.opt.winborder = 'single'
 
 -- Command line {{{1
+vim.opt.wildmode = 'longest:full,full' -- first complete longest common part, then full match on repeated tab presses
 vim.opt.wildignorecase = true -- ignore case for file completion
 vim.opt.wildignore = { -- ignore some patterns for file completion
   '.DS_Store',
-  '*/node_modules/*',
-  '*/vendor/*',
-  '*/dist/*',
 }
 
 -- Search {{{1
@@ -54,5 +52,7 @@ vim.opt.completeopt = {
   'noinsert', -- do not insert a match until the user selects a match from menu
 }
 
--- Backup {{{1
-vim.opt.swapfile = false -- don't use a swapfile
+-- Data recovery {{{1
+vim.opt.swapfile = false -- disable creation of swap files
+vim.opt.undofile = true -- enable persistent undo history across sessions
+vim.opt.undodir = vim.fn.stdpath('state') .. '/undo' -- directory to store undo history files
