@@ -50,19 +50,5 @@ return {
     vim.keymap.set('n', '<Leader>fS', function()
       require('telescope.builtin').lsp_dynamic_workspace_symbols()
     end, options)
-
-    -- TODO: remove when telescope uses winborder option
-    vim.api.nvim_create_autocmd('User', {
-      pattern = 'TelescopeFindPre',
-      callback = function()
-        vim.opt_local.winborder = 'none'
-        vim.api.nvim_create_autocmd('WinLeave', {
-          once = true,
-          callback = function()
-            vim.opt_local.winborder = 'single'
-          end,
-        })
-      end,
-    })
   end,
 }

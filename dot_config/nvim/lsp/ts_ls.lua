@@ -7,8 +7,8 @@ return {
     plugins = {
       {
         name = '@vue/typescript-plugin',
-        location = os.getenv('HOME') .. '/.config/yarn/global/node_modules/@vue/typescript-plugin',
-        languages = { 'javascript', 'typescript', 'vue' },
+        location = '/opt/homebrew/lib/node_modules/@vue/typescript-plugin',
+        languages = { 'vue' },
       },
     },
   },

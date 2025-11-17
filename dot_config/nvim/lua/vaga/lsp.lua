@@ -3,7 +3,6 @@ vim.diagnostic.config({
 })
 
 vim.api.nvim_create_autocmd('LspAttach', {
-  group = vim.api.nvim_create_augroup('vaga.lsp', {}),
   callback = function(event)
     local map = function(mode, lhs, rhs, desc)
       vim.keymap.set(mode, lhs, rhs, { buffer = event.buf, desc = 'LSP: ' .. desc })
@@ -17,7 +16,6 @@ vim.api.nvim_create_autocmd('LspAttach', {
 })
 
 vim.lsp.enable({
-  'gd_ls',
   'gopls',
   'intelephense',
   'lua_ls',
