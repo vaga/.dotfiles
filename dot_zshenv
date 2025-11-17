@@ -4,10 +4,8 @@
 # $HOME/.local/state/ is the default directory for storing runtime data (XDG_STATE_HOME)
 
 # zsh
-export ZDOTDIR=$HOME/.config/zsh/
-export HISTFILE=$HOME/.local/state/zsh_history
-export HISTSIZE=10000
-export SAVEHIST=10000
+export SHELL_SESSIONS_DISABLE=1
+export ZDOTDIR=$HOME/.config/zsh
 
 # editor
 export EDITOR='nvim'
@@ -15,9 +13,6 @@ export VISUAL='nvim'
 
 # man
 export MANPAGER='nvim +Man!'
-
-# ls
-export LSCOLORS='exfxcxdxbxeafabagacada'
 
 # composer
 export COMPOSER_HOME=$HOME/.config/composer
@@ -27,11 +22,11 @@ export COMPOSER_CACHE_DIR=$HOME/.cache/composer
 export GOPATH=$HOME/.local/share/go
 export GOMODCACHE=$HOME/.cache/go/mod
 
-# mysql
-export MYSQL_HISTFILE=$HOME/.local/state/mysql_history
-
 # node
 export NODE_REPL_HISTORY=$HOME/.local/state/node_repl_history
+
+# mysql
+export MYSQL_HISTFILE=$HOME/.local/state/mysql_history
 
 # psql
 export PSQLRC=$HOME/.config/psql/psqlrc

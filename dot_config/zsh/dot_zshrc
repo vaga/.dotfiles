@@ -85,6 +85,9 @@ setopt prompt_subst
 PROMPT=$'%(?.%F{green}\U2714.%F{red}\U2718) %F{blue}%~ $(_get_git_branch)%F{yellow}\U276F%f '
 PS2=$' %F{yellow}%_ \U2026%f '
 
+# Colors {{{1
+export LSCOLORS='exfxcxdxbxeafabagacada'
+
 # Aliases {{{1
 alias vi='nvim'
 alias vim='nvim'
@@ -97,6 +100,10 @@ setopt AUTO_CD                   # Allows navigating to a directory without usin
 setopt CD_SILENT                 # Never print the working directory after a "cd".
 
 # History {{{1
+HISTFILE=$HOME/.local/state/zsh_history
+HISTSIZE=10000
+SAVEHIST=10000
+
 setopt SHARE_HISTORY             # Share history between all sessions.
 setopt HIST_IGNORE_DUPS          # Do not record an event that was just recorded again.
 setopt HIST_IGNORE_ALL_DUPS      # Delete an old recorded event if a new event is a duplicate.
