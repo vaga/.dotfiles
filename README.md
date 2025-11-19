@@ -1,5 +1,4 @@
-.dotfiles
-=========
+# .dotfiles
 
 These are my MacOS dotfiles. You'll find my config for my favorite tools:
  - zsh
@@ -7,12 +6,11 @@ These are my MacOS dotfiles. You'll find my config for my favorite tools:
  - git
  - and more!
 
-Dependencies
-------------
+## Dependencies
 
  - [chezmoi](https://chezmoi.io) is a management suite for dotfiles
 
-Install
--------
+## Install
 
  - `chezmoi init git@github.com:vaga/.dotfiles.git`
+ - `chezmoi apply`
